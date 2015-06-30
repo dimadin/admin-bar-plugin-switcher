@@ -145,7 +145,7 @@ class Admin_Bar_Plugin_Switcher {
 	 * Get an array with all installed plugins.
 	 *
 	 * @since 1.0
-	 * @access public
+	 * @access protected
 	 */
 	protected function get_plugins( $status = '' ) {
 		if ( false === ( $plugins = get_transient( 'abps_plugins' ) ) ) {
@@ -187,7 +187,7 @@ class Admin_Bar_Plugin_Switcher {
 	 * @link http://www.php.net/manual/en/function.sort.php#104464
 	 *
 	 * @since 1.0
-	 * @access public
+	 * @access protected
 	 *
 	 * @param array  $array          A multidimensional array that needs to be sorted.
 	 * @param string $index          A second level that is used as a base for sorting.
@@ -240,7 +240,7 @@ class Admin_Bar_Plugin_Switcher {
 	 * @link http://www.webcheatsheet.com/PHP/get_current_page_url.php
 	 *
 	 * @since 1.0
-	 * @access public
+	 * @access protected
 	 */
 	protected function get_current_page_url() {
 		if ( is_ssl() ) {
@@ -262,7 +262,7 @@ class Admin_Bar_Plugin_Switcher {
 	 * Toggle activation for admin bar link.
 	 *
 	 * @since 1.0
-	 * @access public
+	 * @access protected
 	 */
 	protected function handle_action() {
 		// Only allowed are users with appropiate permisson
