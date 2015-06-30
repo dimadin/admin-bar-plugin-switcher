@@ -14,7 +14,7 @@
  * Description: Activate/deactivate plugins from admin bar.
  * Author:      Milan Dinić
  * Author URI:  http://blog.milandinic.com/
- * Version:     0.3
+ * Version:     0.4
  * Text Domain: admin-bar-plugin-switcher
  * Domain Path: /languages/
  * License:     GPL
@@ -106,25 +106,16 @@ class Admin_Bar_Plugin_Switcher {
 			)
 		);
 
-		// Add subitem with all plugins
-		$wp_admin_bar->add_menu(
-			array(
-				'parent' => 'abps-menu',
-				'id'     => 'abps-all',
-				'title'  => __( 'All', 'admin-bar-plugin-switcher' ),
-				'href'   => admin_url( 'plugins.php?plugin_status=all' ),
-			)
-		);
-
 		// Add subsubitem with plugin activation toggle
 		foreach ( $this->get_plugins() as $plugin_file => $plugin_data ) {
 			$action = $plugin_data['status'] == 'active' ? 'deactivate' : 'activate';
+			$title  = $plugin_data['status'] == 'active' ? __( 'Deactivate %s', 'admin-bar-plugin-switcher' ) : __( 'Activate %s', 'admin-bar-plugin-switcher' );
 
 			$wp_admin_bar->add_menu(
 				array(
-					'parent' => 'abps-all',
+					'parent' => 'abps-menu',
 					'id'     => 'abps-all-' . md5( $plugin_file ),
-					'title'  => $plugin_data['name'],
+					'title'  => sprintf( $title, $plugin_data['name'] ),
 					'href'   => wp_nonce_url(
 						add_query_arg(
 							array(
@@ -134,68 +125,6 @@ class Admin_Bar_Plugin_Switcher {
 							$current_page_url
 						),
 						'abps-'. $action . '-plugin_' . $plugin_file
-					),
-				)
-			);
-		}
-
-		// Add subitem with all active plugins
-		$wp_admin_bar->add_menu(
-			array(
-				'parent' => 'abps-menu',
-				'id'     => 'abps-active',
-				'title'  => __( 'Active', 'admin-bar-plugin-switcher' ),
-				'href'   => admin_url( 'plugins.php?plugin_status=active' ),
-			)
-		);
-
-		// Add subsubitem with plugin deactivation
-		foreach ( $this->get_plugins( 'active' ) as $plugin_file => $plugin_data ) {
-			$wp_admin_bar->add_menu(
-				array(
-					'parent' => 'abps-active',
-					'id'     => 'abps-active-' . md5( $plugin_file ),
-					'title'  => $plugin_data['name'],
-					'href'   => wp_nonce_url(
-						add_query_arg(
-							array(
-								'abps-action' => 'deactivate',
-								'plugin' => $plugin_file
-							),
-							$current_page_url
-						),
-						'abps-deactivate-plugin_' . $plugin_file
-					),
-				)
-			);
-		}
-
-		// Add subitem with all inactive plugins
-		$wp_admin_bar->add_menu(
-			array(
-				'parent' => 'abps-menu',
-				'id'     => 'abps-inactive',
-				'title'  => __( 'Inactive', 'admin-bar-plugin-switcher' ),
-				'href'   => admin_url( 'plugins.php?plugin_status=inactive' ),
-			)
-		);
-
-		// Add subsubitem with plugin deactivation
-		foreach ( $this->get_plugins( 'inactive' ) as $plugin_file => $plugin_data ) {
-			$wp_admin_bar->add_menu(
-				array(
-					'parent' => 'abps-inactive',
-					'id'     => 'abps-inactive-' . md5( $plugin_file ),
-					'title'  => $plugin_data['name'],
-					'href'   => wp_nonce_url(
-						add_query_arg(
-							array(
-								'abps-action' => 'activate',
-								'plugin' => $plugin_file
-							),
-							$current_page_url
-						),
-						'abps-activate-plugin_' . $plugin_file
 					),
 				)
 			);
