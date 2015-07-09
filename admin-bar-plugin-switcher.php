@@ -37,7 +37,7 @@ function abps_instantiate() {
 }
 add_action( 'plugins_loaded', 'abps_instantiate', 15 );
 
-if ( ! class_exists( 'Post_to_Queue' ) ) :
+if ( ! class_exists( 'Admin_Bar_Plugin_Switcher' ) ) :
 /**
  * Post to Queue main class.
  *
