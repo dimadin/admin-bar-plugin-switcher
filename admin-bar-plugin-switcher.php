@@ -39,9 +39,9 @@ add_action( 'plugins_loaded', 'abps_instantiate', 15 );
 
 if ( ! class_exists( 'Admin_Bar_Plugin_Switcher' ) ) :
 /**
- * Post to Queue main class.
+ * Admin Bar Plugin Switcher main class.
  *
- * Queue and publish posts automatically.
+ * Activate/deactivate plugins from admin bar.
  *
  * @since 1.0
  */
