@@ -67,6 +67,37 @@ class Admin_Bar_Plugin_Switcher {
 		add_action( 'deactivated_plugin',                   array( $this, 'purge_cache'    )     );
 		add_action( 'delete_site_transient_update_plugins', array( $this, 'purge_cache'    )     );
 		add_action( 'set_site_transient_update_plugins',    array( $this, 'purge_cache'    )     );
+
+		// Register plugins action links filter
+		add_filter( 'plugin_action_links',                  array( $this, 'action_links'   ), 10, 2 );
+		add_filter( 'network_admin_plugin_action_links',    array( $this, 'action_links'   ), 10, 2 );
+	}
+
+	/**
+	 * Add action links to plugins page.
+	 *
+	 * @since 1.1
+	 * @access public
+	 *
+	 * @param array  $links       Existing plugin's action links.
+	 * @param string $plugin_file Path to the plugin file.
+	 * @return array $links New plugin's action links.
+	 */
+	public function action_links( $links, $plugin_file ) {
+		// Set basename
+		$basename = plugin_basename( __FILE__ );
+
+		// Check if it is for this plugin
+		if ( $basename != $plugin_file ) {
+			return $links;
+		}
+
+		// Add new links
+		$links['donate']   = '<a href="http://blog.milandinic.com/donate/">' . __( 'Donate', 'admin-bar-plugin-switcher' ) . '</a>';
+		$links['wpdev']    = '<a href="http://blog.milandinic.com/wordpress/custom-development/">' . __( 'WordPress Developer', 'admin-bar-plugin-switcher' ) . '</a>';
+		$links['premiums'] = '<strong><a href="https://shop.milandinic.com/">' . __( 'Premium WordPress Plugins', 'admin-bar-plugin-switcher' ) . '</a></strong>';
+
+		return $links;
 	}
 
 	/**
