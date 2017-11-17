@@ -10,11 +10,11 @@
 
 /**
  * Plugin Name: Admin Bar Plugin Switcher
- * Plugin URI:  http://blog.milandinic.com/wordpress/plugins/admin-bar-plugin-switcher/
+ * Plugin URI:  http://blog.milandinic.com/wordpress/plugins/
  * Description: Activate/deactivate plugins from admin bar.
- * Author:      Milan Dinić
+ * Author:      Milan Dinić , modifications by digfish
  * Author URI:  http://blog.milandinic.com/
- * Version:     1.0
+ * Version:     1.1
  * Text Domain: admin-bar-plugin-switcher
  * Domain Path: /languages/
  * License:     GPL
@@ -39,9 +39,9 @@ add_action( 'plugins_loaded', 'abps_instantiate', 15 );
 
 if ( ! class_exists( 'Admin_Bar_Plugin_Switcher' ) ) :
 /**
- * Admin Bar Plugin Switcher main class.
+ * Post to Queue main class.
  *
- * Activate/deactivate plugins from admin bar.
+ * Queue and publish posts automatically.
  *
  * @since 1.0
  */
@@ -60,6 +60,8 @@ class Admin_Bar_Plugin_Switcher {
 
 		// Register main actions
 		add_action( 'init',                                 array( $this, 'init'           )     );
+		add_action( 'wp_enqueue_styles', 					array( $this, 'enqueue_styles' )     );
+
 		add_action( 'admin_bar_menu',                       array( $this, 'admin_bar_menu' ), 95 );
 
 		// Add cache cleaner on apropiate hooks
@@ -67,37 +69,6 @@ class Admin_Bar_Plugin_Switcher {
 		add_action( 'deactivated_plugin',                   array( $this, 'purge_cache'    )     );
 		add_action( 'delete_site_transient_update_plugins', array( $this, 'purge_cache'    )     );
 		add_action( 'set_site_transient_update_plugins',    array( $this, 'purge_cache'    )     );
-
-		// Register plugins action links filter
-		add_filter( 'plugin_action_links',                  array( $this, 'action_links'   ), 10, 2 );
-		add_filter( 'network_admin_plugin_action_links',    array( $this, 'action_links'   ), 10, 2 );
-	}
-
-	/**
-	 * Add action links to plugins page.
-	 *
-	 * @since 1.1
-	 * @access public
-	 *
-	 * @param array  $links       Existing plugin's action links.
-	 * @param string $plugin_file Path to the plugin file.
-	 * @return array $links New plugin's action links.
-	 */
-	public function action_links( $links, $plugin_file ) {
-		// Set basename
-		$basename = plugin_basename( __FILE__ );
-
-		// Check if it is for this plugin
-		if ( $basename != $plugin_file ) {
-			return $links;
-		}
-
-		// Add new links
-		$links['donate']   = '<a href="http://blog.milandinic.com/donate/">' . __( 'Donate', 'admin-bar-plugin-switcher' ) . '</a>';
-		$links['wpdev']    = '<a href="http://blog.milandinic.com/wordpress/custom-development/">' . __( 'WordPress Developer', 'admin-bar-plugin-switcher' ) . '</a>';
-		$links['premiums'] = '<strong><a href="https://shop.milandinic.com/">' . __( 'Premium WordPress Plugins', 'admin-bar-plugin-switcher' ) . '</a></strong>';
-
-		return $links;
 	}
 
 	/**
@@ -107,9 +78,20 @@ class Admin_Bar_Plugin_Switcher {
 	 * @access public
 	 */
 	public function init() {
+
+		wp_register_style('plugin_switcher_styles',plugins_url('admin-bar-plugin-switcher.css', __FILE__ ));
+		$this->enqueue_styles();
 		if ( isset( $_REQUEST['abps-action'] ) && ( $action = $_REQUEST['abps-action'] ) && in_array( $action, array( 'activate', 'deactivate' ) ) ) {
 			$this->handle_action();
 		}
+	}
+
+	/**
+	 * Register extra CSS styles
+	 * @since 1.1
+	 */
+	public function enqueue_styles() {
+	    wp_enqueue_style( 'plugin_switcher_styles' );
 	}
 
 	/**
@@ -134,6 +116,7 @@ class Admin_Bar_Plugin_Switcher {
 				'id'    => 'abps-menu',
 				'title' => __( 'Plugins', 'admin-bar-plugin-switcher' ),
 				'href'  => admin_url( 'plugins.php' ),
+				'meta' => array('')
 			)
 		);
 

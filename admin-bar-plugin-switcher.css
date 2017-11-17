@@ -1,0 +1,6 @@
+
+#wp-admin-bar-abps-menu .ab-sub-wrapper {
+    column-count: 3;
+    column-gap: 5px;
+    max-width: 60em;
+}
