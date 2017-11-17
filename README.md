@@ -1,6 +1,6 @@
 Activate/deactivate plugins from admin bar.
 
-== Description ==
+## Description
 
 [Plugin homepage](http://blog.milandinic.com/wordpress/plugins/admin-bar-plugin-switcher/) | [Plugin author](http://blog.milandinic.com/) | [Donate](http://blog.milandinic.com/donate/)
 
