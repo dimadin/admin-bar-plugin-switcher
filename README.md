@@ -1,11 +1,3 @@
-=== Admin Bar Plugin Switcher ===
-Contributors: dimadin, digfish
-Donate link: http://blog.milandinic.com/donate/
-Tags: admin bar, plugins, activation, deactivation
-Requires at least: 3.5
-Tested up to: 4.7
-Stable tag: 1.0
-
 Activate/deactivate plugins from admin bar.
 
 == Description ==
@@ -18,11 +10,12 @@ Note that it has no settings, just activate it and it works immediately for any 
 
 And it's on [GitHub](https://github.com/dimadin/admin-bar-plugin-switcher).
 
-== Installation ==
+## Installation
+
 
 1. Upload `admin-bar-plugin-switcher` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
-== Screenshots ==
 
-1. Example of admin bar menu after activation of this plugin.
+## Some improvements
+Added CSS to allow to properly plugins to acommodate all properly in the pulldown from the admin bar. 
