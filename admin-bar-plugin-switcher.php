@@ -126,8 +126,6 @@ class Admin_Bar_Plugin_Switcher {
 
 		global $wp_admin_bar;
 
-		$current_page_url = $this->get_current_page_url();
-
 		// Add main admin bar item
 		$wp_admin_bar->add_menu(
 			array(
@@ -152,8 +150,7 @@ class Admin_Bar_Plugin_Switcher {
 							array(
 								'abps-action' => $action,
 								'plugin'      => $plugin_file
-							),
-							$current_page_url
+							)
 						),
 						'abps-'. $action . '-plugin_' . $plugin_file
 					),
@@ -332,10 +329,8 @@ class Admin_Bar_Plugin_Switcher {
 				break;
 		}
 
-		$current_page_url = $this->get_current_page_url();
-
 		// Remove query keys
-		$current_page_url = remove_query_arg( array( 'abps-action', 'plugin', '_wpnonce' ), $current_page_url );
+		$current_page_url = remove_query_arg( array( 'abps-action', 'plugin', '_wpnonce' ) );
 
 		// Redirect to the same page without query keys
 		wp_safe_redirect( $current_page_url );
