@@ -119,6 +119,11 @@ class Admin_Bar_Plugin_Switcher {
 	 * @access public
 	 */
 	public function admin_bar_menu() {
+		// If this is multisite, don't display
+		if ( is_multisite() ) {
+			return;
+		}
+
 		// If the current user can't activate plugins, don't display
 		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;
@@ -293,6 +298,11 @@ class Admin_Bar_Plugin_Switcher {
 	 * @access protected
 	 */
 	protected function handle_action() {
+		// Only allowed on installations that aren't multisite
+		if ( is_multisite() ) {
+			return;
+		}
+
 		// Only allowed are users with appropiate permisson
 		if ( ! current_user_can( 'activate_plugins' ) ) {
 			wp_die( __( 'You do not have sufficient permissions to deactivate plugins for this site.', 'admin-bar-plugin-switcher' ) );
