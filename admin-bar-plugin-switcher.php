@@ -10,9 +10,9 @@
 
 /**
  * Plugin Name: Admin Bar Plugin Switcher
- * Plugin URI:  http://blog.milandinic.com/wordpress/plugins/admin-bar-plugin-switcher/
+ * Plugin URI:  http://blog.milandinic.com/wordpress/plugins/
  * Description: Activate/deactivate plugins from admin bar.
- * Author:      Milan Dinić
+ * Author:      Milan Dinić , modifications by digfish
  * Author URI:  http://blog.milandinic.com/
  * Version:     1.1
  * Text Domain: admin-bar-plugin-switcher
@@ -39,9 +39,9 @@ add_action( 'plugins_loaded', 'abps_instantiate', 15 );
 
 if ( ! class_exists( 'Admin_Bar_Plugin_Switcher' ) ) :
 /**
- * Admin Bar Plugin Switcher main class.
+ * Post to Queue main class.
  *
- * Activate/deactivate plugins from admin bar.
+ * Queue and publish posts automatically.
  *
  * @since 1.0
  */
@@ -57,6 +57,8 @@ class Admin_Bar_Plugin_Switcher {
 	public function __construct() {
 		// Register main actions
 		add_action( 'init',                                 array( $this, 'init'           )     );
+		add_action( 'wp_enqueue_styles', 					array( $this, 'enqueue_styles' )     );
+
 		add_action( 'admin_bar_menu',                       array( $this, 'admin_bar_menu' ), 95 );
 
 		// Add cache cleaner on apropiate hooks
@@ -73,9 +75,20 @@ class Admin_Bar_Plugin_Switcher {
 	 * @access public
 	 */
 	public function init() {
+
+		wp_register_style('plugin_switcher_styles',plugins_url('admin-bar-plugin-switcher.css', __FILE__ ));
+		$this->enqueue_styles();
 		if ( isset( $_REQUEST['abps-action'] ) && ( $action = $_REQUEST['abps-action'] ) && in_array( $action, array( 'activate', 'deactivate' ) ) ) {
 			$this->handle_action();
 		}
+	}
+
+	/**
+	 * Register extra CSS styles
+	 * @since 1.1
+	 */
+	public function enqueue_styles() {
+	    wp_enqueue_style( 'plugin_switcher_styles' );
 	}
 
 	/**
@@ -103,6 +116,7 @@ class Admin_Bar_Plugin_Switcher {
 				'id'    => 'abps-menu',
 				'title' => __( 'Plugins', 'admin-bar-plugin-switcher' ),
 				'href'  => admin_url( 'plugins.php' ),
+				'meta' => array('')
 			)
 		);
 
