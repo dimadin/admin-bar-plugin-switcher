@@ -1,0 +1,23 @@
+{
+	"name": "dimadin/admin-bar-plugin-switcher",
+	"description": "Activate/deactivate plugins from admin bar.",
+	"keywords": ["admin bar"],
+	"type": "wordpress-plugin",
+	"homepage": "https://milandinic.com/wordpress/plugins/admin-bar-plugin-switcher/",
+	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "Milan Dinić",
+			"email": "milan@srpski.biz",
+			"homepage": "https://milandinic.com/"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/dimadin/admin-bar-plugin-switcher/issues",
+		"source": "https://github.com/dimadin/admin-bar-plugin-switcher"
+	},
+	"require": {
+		"php": ">=5.2.4",
+		"composer/installers": "~1.0"
+	}
+}
