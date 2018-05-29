@@ -55,9 +55,6 @@ class Admin_Bar_Plugin_Switcher {
 	 * @access public
 	 */
 	public function __construct() {
-		// Load translations
-		load_plugin_textdomain( 'admin-bar-plugin-switcher', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-
 		// Register main actions
 		add_action( 'init',                                 array( $this, 'init'           )     );
 		add_action( 'admin_bar_menu',                       array( $this, 'admin_bar_menu' ), 95 );
