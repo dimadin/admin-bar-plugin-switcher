@@ -14,7 +14,7 @@
  * Description: Activate/deactivate plugins from admin bar.
  * Author:      Milan Dinić
  * Author URI:  http://blog.milandinic.com/
- * Version:     1.0
+ * Version:     1.1
  * Text Domain: admin-bar-plugin-switcher
  * Domain Path: /languages/
  * License:     GPL
