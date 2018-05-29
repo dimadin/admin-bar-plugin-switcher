@@ -269,7 +269,7 @@ class Admin_Bar_Plugin_Switcher {
 			return;
 		}
 
-		// Only allowed are users with appropiate permisson
+		// Only allowed are users with appropriate permission
 		if ( ! current_user_can( 'activate_plugins' ) ) {
 			wp_die( __( 'You do not have sufficient permissions to deactivate plugins for this site.', 'admin-bar-plugin-switcher' ) );
 		}
@@ -281,7 +281,7 @@ class Admin_Bar_Plugin_Switcher {
 
 		switch ( $action ) {
 			case 'activate':
-				// Check if appropiate nonce was set
+				// Check if appropriate nonce was set
 				check_admin_referer( 'abps-activate-plugin_' . $plugin );
 
 				$result = activate_plugin( $plugin );
@@ -298,7 +298,7 @@ class Admin_Bar_Plugin_Switcher {
 				}
 				break;
 			case 'deactivate':
-				// Check if appropiate nonce was set
+				// Check if appropriate nonce was set
 				check_admin_referer( 'abps-deactivate-plugin_' . $plugin );
 
 				deactivate_plugins( $plugin );
