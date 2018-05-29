@@ -309,7 +309,7 @@ class Admin_Bar_Plugin_Switcher {
 		}
 
 		$action = $_REQUEST['abps-action'];
-		$plugin = isset( $_REQUEST['plugin'] ) ? $_REQUEST['plugin'] : '';
+		$plugin = isset( $_REQUEST['plugin'] ) ? wp_unslash( $_REQUEST['plugin'] ) : '';
 
 		require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
