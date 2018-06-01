@@ -10,10 +10,10 @@
 
 /**
  * Plugin Name: Admin Bar Plugin Switcher
- * Plugin URI:  http://blog.milandinic.com/wordpress/plugins/admin-bar-plugin-switcher/
+ * Plugin URI:  https://milandinic.com/wordpress/plugins/admin-bar-plugin-switcher/
  * Description: Activate/deactivate plugins from admin bar.
  * Author:      Milan Dinić
- * Author URI:  http://blog.milandinic.com/
+ * Author URI:  https://milandinic.com/
  * Version:     1.1
  * Text Domain: admin-bar-plugin-switcher
  * Domain Path: /languages/
